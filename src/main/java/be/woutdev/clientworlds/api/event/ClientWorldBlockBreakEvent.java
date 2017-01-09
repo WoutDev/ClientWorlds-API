@@ -58,7 +58,8 @@ public class ClientWorldBlockBreakEvent extends Event implements Cancellable
     }
 
     @Override
-    public HandlerList getHandlers() {
+    public HandlerList getHandlers()
+    {
         return handlers;
     }
 }

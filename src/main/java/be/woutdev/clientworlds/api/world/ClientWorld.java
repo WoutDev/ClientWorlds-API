@@ -1,8 +1,12 @@
 package be.woutdev.clientworlds.api.world;
 
-import be.woutdev.clientworlds.api.block.ClientBlock;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
+import be.woutdev.clientworlds.api.block.BlockHandler;
+import be.woutdev.clientworlds.api.entity.EntityHandler;
+import be.woutdev.clientworlds.api.player.PlayerHandler;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+
+import java.util.Set;
 
 /**
  * Created by Wout on 24/08/2016.
@@ -10,48 +14,38 @@ import org.bukkit.entity.Player;
 public interface ClientWorld
 {
     /**
-     * Add a player to the ClientWorld. This will directly send updates to the player.
-     * @param player The player to add.
-     * @return If adding the player was successful or not.
+     * Get the BlockHandler used in this ClientWorld.
+     *
+     * @return The BlockHandler used in this ClientWorld.
      */
-    boolean addPlayer(Player player);
+    BlockHandler getBlockHandler();
 
     /**
-     * Remove a player from the ClientWorld. This will directly update the world to its normal state. Be careful with the players location when using this.
-     * @param player The player to remove.
-     * @return If removing the player was successful or not.
+     * Get the EntityHandler used in this ClientWorld.
+     *
+     * @return The EntityHandler used in this ClientWorld.
      */
-    boolean removePlayer(Player player);
+    EntityHandler getEntityHandler();
 
     /**
-     * Get a ClientBlock by location.
-     * @param location The location.
-     * @return The ClientBlock at that location.
+     * Get the PlayerHandler used in this ClientWorld.
+     *
+     * @return The PlayerHandler used in this ClientWorld.
      */
-    ClientBlock getBlockAt(Location location);
+    PlayerHandler getPlayerHandler();
 
     /**
-     * Get a ClientBlock by coordinates.
-     * @param x The x-coordinate.
-     * @param y The y-coordinate.
-     * @param z The z-coordinate.
-     * @return The ClientBlock at the given coordinates.
+     * Get a Set of all entities which are NOT part of this ClientWorld instance but are in the same bukkit world. This
+     * Set could also include Players as Entity objects.
+     *
+     * @return A Set of all entities which are NOT part of this ClientWorld instance but are in the same bukkit world.
      */
-    ClientBlock getBlockAt(int x, int y, int z);
+    Set<Entity> getNonParticipants();
 
     /**
-     * Hide the player from the observer.
-     * @param observer The observer where the player should be hidden from.
-     * @param player The player that should be hidden for the observer.
-     * @return If this action went successful.
+     * Get the Bukkit world associated with this ClientWorld.
+     *
+     * @return The Bukkit world associated with this ClientWorld.
      */
-    boolean hide(Player observer, Player player);
-
-    /**
-     * Show the player to the observer.
-     * @param observer The observer where the player should be shown for.
-     * @param player The player that should be shown for the observer.
-     * @return If this action went successful.
-     */
-    boolean show(Player observer, Player player);
+    World getBukkitWorld();
 }
